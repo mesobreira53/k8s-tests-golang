@@ -32,6 +32,7 @@ func main() {
 	defaultKubeConfigPath := filepath.Join(userHomeDir, ".kube", "config")
 
 	kubeConfigPath := flag.String("kconfig", defaultKubeConfigPath, "Kubeconfig path")
+	vault_token := flag.String("token", "", "Vault Token")
 	flag.Parse()
 	fmt.Println("Get Kubernetes pods")
 
@@ -149,7 +150,7 @@ func main() {
 
 	// Vault integration
 	fmt.Println("Connecting to Vault...")
-	v := vault.NewVault("http://192.168.1.200:8200", "hvs")
+	v := vault.NewVault("http://192.168.1.200:8200", *vault_token)
 	v.VaultSyncSecret()
 
 }
